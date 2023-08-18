@@ -1,17 +1,31 @@
-.sidenav-container {
-  height: 100%;
+.spacer {
+  flex: 1 1 auto;
 }
 
-.sidenav {
-  width: 200px;
+.navigation-container {
+  width: calc(100vw - 0px);
+  height: calc(100vh - 0px);
 }
 
-.sidenav .mat-toolbar {
-  background: inherit;
+.navigation-sidenav {
+  --nav-section-header-color: rgba(255, 255, 255, 0.5);
+  --nav-group-title-color: rgba(255, 255, 255, 0.8);
+  background-attachment: fixed;
+  background-color: var(--theme-color-navbar-bg);
+  background-image: url(//www.gstatic.com/mobilesdk/190424_mobilesdk/nav_nachos@2x.png);
+  background-position: left 0 bottom 0;
+  background-repeat: no-repeat;
+  background-size: 300px 556px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 300px;
 }
 
-.mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+.main-card {
+  height: calc(100% - 85px);
+  width: calc(100% - 20px);
+  margin-top: 10px;
+  margin-left: 10px;
 }

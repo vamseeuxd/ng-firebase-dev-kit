@@ -1,0 +1,17 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Appearance </mat-panel-title>
+    <mat-panel-description>
+      Choose your light or dark theme preference
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <mat-radio-group aria-label="Select an option">
+    <mat-radio-button
+      *ngFor="let theme of themes"
+      [checked]="colorSchemeService.colorScheme === theme.name"
+      (click)="setTheme(theme.name)"
+      >{{ theme.name }}</mat-radio-button
+    >
+  </mat-radio-group>
+</mat-expansion-panel>

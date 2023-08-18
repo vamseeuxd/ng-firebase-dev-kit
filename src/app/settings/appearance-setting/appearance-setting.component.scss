@@ -1,0 +1,24 @@
+:host {
+  mat-expansion-panel {
+    margin-bottom: 0.0625rem;
+    mat-expansion-panel-header {
+      padding-bottom: 0.25rem;
+      ::ng-deep .mat-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+      }
+      mat-panel-description {
+        font-size: 0.65rem;
+        line-height: 0.65rem;
+        margin-top: 0.25rem;
+      }
+    }
+    mat-radio-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
