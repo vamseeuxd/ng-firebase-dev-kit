@@ -1,7 +1,8 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
-@import '../node_modules/bootstrap/dist/css/bootstrap-grid.css';
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 html {
   height: 100%;
   box-sizing: border-box;
@@ -51,4 +52,19 @@ $dark-theme: mat.define-dark-theme(
 
 .color-scheme-light {
   @include mat.all-component-themes($light-theme);
+}
+
+.color-scheme-light {
+  .mat-mdc-list-item {
+    &.active {
+      background-color: #c6cad0;
+    }
+  }
+}
+.color-scheme-dark {
+  .mat-mdc-list-item {
+    &.active {
+      background-color: #202020;
+    }
+  }
 }

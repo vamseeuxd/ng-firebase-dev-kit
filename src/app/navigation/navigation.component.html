@@ -7,6 +7,29 @@
     <mat-accordion multi>
       <app-appearance-setting></app-appearance-setting>
     </mat-accordion>
+
+    <mat-action-list>
+      <ng-container
+        *ngFor="
+          let i of [
+            'franchise',
+            'brachces',
+            'products',
+            'prices',
+            'inventory',
+            'sales',
+            'vendors',
+            'cutomers',
+            'order-taking',
+            'login',
+            'registration'
+          ]
+        ">
+        <button mat-list-item routerLinkActive="active shadow-sm" [routerLink]="i">
+          {{ i | titlecase }}
+        </button>
+      </ng-container>
+    </mat-action-list>
   </mat-drawer>
 
   <mat-toolbar color="primary">
