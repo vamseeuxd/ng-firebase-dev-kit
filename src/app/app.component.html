@@ -1,1 +1,21 @@
-<app-navigation></app-navigation>
+<app-navigation>
+  <div class="row">
+    <ng-container *ngFor="let i of [
+    'Franchise',
+    'Brachces',
+    'Products',
+    'Prices',
+    'Inventory',
+    'Sales',
+    'Vendors',
+    'Cutomers',
+    'Order Taking',
+    ]">
+      <div class="col-md-4 mb-3">
+        <mat-card style="height: 200px">
+          <mat-card-content>{{i}}</mat-card-content>
+        </mat-card>
+      </div>
+    </ng-container>
+  </div>
+</app-navigation>

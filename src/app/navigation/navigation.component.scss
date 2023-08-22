@@ -29,3 +29,8 @@
   margin-top: 10px;
   margin-left: 10px;
 }
+mat-drawer-container {
+  ::ng-deep mat-drawer-content {
+    overflow: hidden;
+  }
+}

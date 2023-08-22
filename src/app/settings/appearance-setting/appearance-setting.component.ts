@@ -8,17 +8,16 @@ import { ColorSchemeService } from 'src/app/services/color-scheme.service';
 })
 export class AppearanceSettingComponent {
   public themes = [
-    {
-      name: 'dark',
-      icon: 'brightness_3',
-    },
-    {
-      name: 'light',
-      icon: 'wb_sunny',
-    },
+    { name: 'light', title: 'Light', icon: 'wb_sunny' },
+    { name: 'dark', title: 'Dark', icon: 'brightness_3' },
   ];
-
-  constructor(public colorSchemeService: ColorSchemeService) {}
+  colorScheme = '';
+  constructor(public colorSchemeService: ColorSchemeService) {
+    this.colorSchemeService.load();
+    if (this.colorSchemeService.colorScheme) {
+      this.colorScheme = this.colorSchemeService.colorScheme;
+    }
+  }
 
   setTheme(theme: string) {
     this.colorSchemeService.update(theme);

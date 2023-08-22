@@ -6,12 +6,12 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
 
-  <mat-radio-group aria-label="Select an option">
+  <mat-radio-group aria-label="Select an option" [(ngModel)]="colorScheme">
     <mat-radio-button
       *ngFor="let theme of themes"
-      [checked]="colorSchemeService.colorScheme === theme.name"
       (click)="setTheme(theme.name)"
-      >{{ theme.name }}</mat-radio-button
+      [value]="theme.name"
+      >{{ theme.title }} <mat-icon>{{ theme.icon }}</mat-icon></mat-radio-button
     >
   </mat-radio-group>
 </mat-expansion-panel>

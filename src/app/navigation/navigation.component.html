@@ -17,7 +17,7 @@
       aria-label="navigation icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Firebase Dev-kit</span>
+    <span>Retail-360</span>
     <span class="spacer"></span>
     <button
       mat-icon-button
@@ -33,6 +33,9 @@
     </button>
   </mat-toolbar>
   <mat-card class="main-card">
-    <mat-card-content>Simple card</mat-card-content>
+    <mat-card-content
+      style="max-height: calc(100vh - 90px); overflow: hidden auto">
+      <ng-content></ng-content>
+    </mat-card-content>
   </mat-card>
 </mat-drawer-container>
