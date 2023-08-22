@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/ng-firebase-dev-kit",
+    "public": "dist/retail-360",
     "ignore": [
       "firebase.json",
       "**/.*",

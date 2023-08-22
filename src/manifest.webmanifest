@@ -1,8 +1,8 @@
 {
-  "name": "ng-firebase-dev-kit",
-  "short_name": "ng-firebase-dev-kit",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "retail-360",
+  "short_name": "retail-360",
+  "theme_color": "#ffd462",
+  "background_color": "#ffd462",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
