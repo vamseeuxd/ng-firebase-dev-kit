@@ -7,7 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Auth, User, user } from '@angular/fire/auth';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
@@ -20,9 +20,11 @@ export class AuthService implements CanActivate {
   userSubscription: Subscription;
 
   constructor(private router: Router) {
-    this.userSubscription = this.user$.subscribe((aUser: User | null) => {
+    this.userSubscription = this.user$.subscribe((user: User | null) => {
       //handle user state changes here. Note, that user will be null if there is no currently logged in user.
-      console.log(aUser);
+      if (!user) {
+        this.router.navigate(['login']);
+      }
     });
   }
 
@@ -49,10 +51,7 @@ export class AuthService implements CanActivate {
     }
   }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
+  canActivate():
     | boolean
     | UrlTree
     | Observable<boolean | UrlTree>

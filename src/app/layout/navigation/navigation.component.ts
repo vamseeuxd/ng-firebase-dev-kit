@@ -11,6 +11,19 @@ import { map, shareReplay } from 'rxjs/operators';
 export class NavigationComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
+  menuBeforeLogin = ['login', 'registration'];
+  menuAfterLogin = [
+    'franchise',
+    'brachces',
+    'products',
+    'prices',
+    'inventory',
+    'sales',
+    'vendors',
+    'cutomers',
+    'order-taking',
+  ];
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
