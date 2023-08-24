@@ -4,6 +4,11 @@ import { AuthService } from './services/auth/auth.service';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
     path: 'franchise',
     canActivate: [AuthService],
     loadChildren: () =>

@@ -4,9 +4,9 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     class="navigation-sidenav"
     mode="side">
-    <mat-accordion multi>
+    <!-- <mat-accordion multi>
       <app-appearance-setting></app-appearance-setting>
-    </mat-accordion>
+    </mat-accordion> -->
 
     <mat-action-list>
       <ng-container
@@ -25,40 +25,34 @@
             'registration'
           ]
         ">
-        <button mat-list-item routerLinkActive="active shadow-sm" [routerLink]="i">
+        <button
+          mat-list-item
+          routerLinkActive="active shadow-sm"
+          [routerLink]="i">
           {{ i | titlecase }}
         </button>
       </ng-container>
     </mat-action-list>
   </mat-drawer>
 
-  <mat-toolbar color="primary">
-    <button
-      (click)="drawer.toggle()"
-      mat-icon-button
-      class="navigation-icon"
-      aria-label="navigation icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Retail-360-Demo</span>
-    <span class="spacer"></span>
-    <button
-      mat-icon-button
-      class="navigation-icon favorite-icon"
-      aria-label="navigation icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button
-      mat-icon-button
-      class="navigation-icon"
-      aria-label="navigation icon-button with share icon">
-      <mat-icon>share</mat-icon>
-    </button>
-  </mat-toolbar>
-  <mat-card class="main-card">
-    <mat-card-content
-      style="max-height: calc(100vh - 90px); overflow: hidden auto">
-      <ng-content></ng-content>
-    </mat-card-content>
-  </mat-card>
+  <mat-drawer-content>
+    <mat-toolbar color="primary">
+      <button
+        (click)="drawer.toggle()"
+        mat-icon-button
+        class="navigation-icon"
+        aria-label="navigation icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Retail-360</span>
+      <span class="spacer"></span>
+      <app-appearance-setting></app-appearance-setting>
+    </mat-toolbar>
+    <mat-card class="main-card">
+      <mat-card-content
+        style="max-height: calc(100vh - 90px); overflow: hidden auto">
+        <ng-content></ng-content>
+      </mat-card-content>
+    </mat-card>
+  </mat-drawer-content>
 </mat-drawer-container>

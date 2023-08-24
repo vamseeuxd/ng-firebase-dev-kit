@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
 import { ColorSchemeService } from 'src/app/services/color-scheme.service';
 
@@ -7,19 +8,12 @@ import { ColorSchemeService } from 'src/app/services/color-scheme.service';
   styleUrls: ['./appearance-setting.component.scss'],
 })
 export class AppearanceSettingComponent {
-  public themes = [
-    { name: 'light', title: 'Light', icon: 'wb_sunny' },
-    { name: 'dark', title: 'Dark', icon: 'brightness_3' },
-  ];
-  colorScheme = '';
-  constructor(public colorSchemeService: ColorSchemeService) {
-    this.colorSchemeService.load();
-    if (this.colorSchemeService.colorScheme) {
-      this.colorScheme = this.colorSchemeService.colorScheme;
-    }
+  theme$: Observable<'light' | 'dark'>;
+  constructor(public service: ColorSchemeService) {
+    this.theme$ = service.theme$;
   }
 
-  setTheme(theme: string) {
-    this.colorSchemeService.update(theme);
+  setTheme(theme: 'light' | 'dark') {
+    this.service.themeAction.next(theme);
   }
 }

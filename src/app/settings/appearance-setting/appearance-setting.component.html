@@ -1,17 +1,7 @@
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title> Appearance </mat-panel-title>
-    <mat-panel-description>
-      Choose your light or dark theme preference
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-
-  <mat-radio-group aria-label="Select an option" [(ngModel)]="colorScheme">
-    <mat-radio-button
-      *ngFor="let theme of themes"
-      (click)="setTheme(theme.name)"
-      [value]="theme.name"
-      >{{ theme.title }} <mat-icon>{{ theme.icon }}</mat-icon></mat-radio-button
-    >
-  </mat-radio-group>
-</mat-expansion-panel>
+<ng-container *ngIf="theme$ | async as selectedTheme">
+  <ng-container *ngFor="let theme of service.themes">
+    <button (click)="setTheme(theme.name)" mat-icon-button *ngIf="selectedTheme !== theme.name" [matTooltip]="theme.toolTip">
+      <mat-icon>{{ theme.icon }}</mat-icon>
+    </button>
+  </ng-container>
+</ng-container>

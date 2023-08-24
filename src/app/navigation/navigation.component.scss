@@ -1,36 +1,30 @@
-.spacer {
-  flex: 1 1 auto;
-}
+:host {
+  .spacer {
+    flex: 1 1 auto;
+  }
 
-.navigation-container {
-  width: calc(100vw - 0px);
-  height: calc(100vh - 0px);
-}
+  .navigation-container {
+    width: calc(100vw - 0px);
+    height: calc(100vh - 0px);
+  }
 
-.navigation-sidenav {
-  --nav-section-header-color: rgba(255, 255, 255, 0.5);
-  --nav-group-title-color: rgba(255, 255, 255, 0.8);
-  background-attachment: fixed;
-  background-color: var(--theme-color-navbar-bg);
-  background-image: url(//www.gstatic.com/mobilesdk/190424_mobilesdk/nav_nachos@2x.png);
-  background-position: left 0 bottom 0;
-  background-repeat: no-repeat;
-  background-size: 300px 556px;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 300px;
-}
+  .navigation-sidenav {
+    width: 220px;
+  }
 
-.main-card {
-  height: calc(100% - 85px);
-  width: calc(100% - 20px);
-  margin-top: 10px;
-  margin-left: 10px;
-}
-mat-drawer-container {
-  ::ng-deep mat-drawer-content {
-    overflow: hidden;
+  .main-card {
+    height: calc(100% - 85px);
+    width: calc(100% - 20px);
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  mat-drawer-container {
+    ::ng-deep mat-drawer-content {
+      overflow: hidden;
+    }
+    ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+      visibility: visible;
+      background-color: transparent;
+    }
   }
 }
