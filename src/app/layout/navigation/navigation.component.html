@@ -36,9 +36,12 @@
       >
       <span class="spacer"></span>
       <app-appearance-setting></app-appearance-setting>
-      <button (click)="signOut()" mat-icon-button [matTooltip]="'Logout'">
-        <mat-icon>logout</mat-icon>
-      </button>
+
+      <ng-container *ngIf="authService.user$ | async as user">
+        <button (click)="signOut()" mat-icon-button [matTooltip]="'Logout'">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </ng-container>
     </mat-toolbar>
     <mat-card class="main-card">
       <mat-card-content

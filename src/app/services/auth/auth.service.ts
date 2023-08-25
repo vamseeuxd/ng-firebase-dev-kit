@@ -11,6 +11,7 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from 'firebase/auth';
+import { ConfirmService } from '../confirm/confirm.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,10 @@ export class AuthService implements CanActivate {
   user$ = user(this.auth);
   userSubscription: Subscription;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private confirmService: ConfirmService
+  ) {
     this.userSubscription = this.user$.subscribe((user: User | null) => {
       //handle user state changes here. Note, that user will be null if there is no currently logged in user.
       if (!user) {
@@ -81,7 +85,13 @@ export class AuthService implements CanActivate {
   }
 
   async signOut() {
+    const isConfirm = await this.confirmService.confirmDialog(
+      'Logout Confirmation',
+      'Are you sure! Do you want to logout?'
+    );
+    /*
     const isConfirm = confirm('Are you sure! Do you want to logout?');
+    */
     if (isConfirm) {
       try {
         await this.auth.signOut();

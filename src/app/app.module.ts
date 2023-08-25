@@ -22,9 +22,16 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment.development';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, AppearanceSettingComponent],
+  declarations: [
+    AppComponent,
+    NavigationComponent,
+    AppearanceSettingComponent,
+    ConfirmDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -41,6 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatGridListModule,
     MatTooltipModule,
     FormsModule,
+    MatDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

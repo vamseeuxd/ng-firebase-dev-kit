@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "component": "ng g c settings/AppearanceSetting",
+    "component": "ng g c shared/confirm-dialog",
+    "service": "ng g s services/confirm",
     "test": "ng test",
     "prepare": "husky install",
     "lint": "ng lint"
