@@ -2,6 +2,7 @@
 @include mat.core();
 
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 html {
   height: 100%;
@@ -22,8 +23,41 @@ body {
   box-sizing: inherit;
 }
 
+$retail360-palette: (
+  50: #FFFAEC,
+  100: #FFF2D0,
+  200: #FFEAB1,
+  300: #FFE191,
+  400: #FFDA7A,
+  500: #FFD462,
+  600: #FFCF5A,
+  700: #FFC950,
+  800: #FFC346,
+  900: #FFB934,
+  A100: #FFFFFF,
+  A200: #FFFFFF,
+  A400: #FFF3DF,
+  A700: #FFEAC5,
+  contrast: (
+    50: #ffffff,
+    100: #ffffff,
+    200: #ffffff,
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: rgba(black, 0.87),
+    900: rgba(black, 0.87),
+    A100: #ffffff,
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: rgba(black, 0.87),
+  )
+);
+
 // Define a light theme
-$light-primary: mat.define-palette(mat.$indigo-palette);
+$light-primary: mat.define-palette($retail360-palette);
 $light-accent: mat.define-palette(mat.$pink-palette);
 $light-theme: mat.define-light-theme(
   (
@@ -35,7 +69,7 @@ $light-theme: mat.define-light-theme(
 );
 
 // Define a dark theme
-$dark-primary: mat.define-palette(mat.$pink-palette);
+$dark-primary: mat.define-palette($retail360-palette);
 $dark-accent: mat.define-palette(mat.$blue-gray-palette);
 $dark-theme: mat.define-dark-theme(
   (
