@@ -4,23 +4,8 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     class="navigation-sidenav"
     mode="side">
-    <mat-action-list>
-      <ng-container
-        *ngFor="
-          let i of [
-            'franchise',
-            'brachces',
-            'products',
-            'prices',
-            'inventory',
-            'sales',
-            'vendors',
-            'cutomers',
-            'order-taking',
-            'login',
-            'registration'
-          ]
-        ">
+    <mat-action-list *ngIf="menu$ | async as menu">
+      <ng-container *ngFor="let i of menu">
         <button
           mat-list-item
           routerLinkActive="active shadow-sm"
@@ -41,8 +26,11 @@
         <mat-icon>menu</mat-icon>
       </button>
       <span>
-        <img src="./assets/logo.png" class="border-end border-secondary pe-2">
-        <span class="text-danger ms-2" style="font-size: 12px;">0.0.1</span></span>
+        <img src="./assets/logo.png" alt="Logo" class="border-end border-secondary pe-2" />
+        <span class="text-danger ms-2" style="font-size: 12px"
+          >0.0.1</span
+        ></span
+      >
       <span class="spacer"></span>
       <app-appearance-setting></app-appearance-setting>
     </mat-toolbar>

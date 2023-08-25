@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, of, combineLatest } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -24,10 +25,21 @@ export class NavigationComponent {
     'order-taking',
   ];
 
+  menu$ = combineLatest(
+    this.authService.user$,
+    of(this.menuBeforeLogin),
+    of(this.menuAfterLogin)
+  ).pipe(
+    map(([user, menuBeforeLogin, menuAfterLogin]) => {
+      return user ? menuAfterLogin : menuBeforeLogin;
+    })
+  );
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+  constructor(public authService: AuthService) {}
 }
