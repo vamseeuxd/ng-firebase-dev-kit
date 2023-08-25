@@ -12,4 +12,8 @@ export class LoginComponent {
   async signInWithGmail() {
     await this.authService.signInWithGmail();
   }
+
+  async signInWithEmailAndPassword(email: string, password: string) {
+    await this.authService.signInWithEmailAndPassword(email, password);
+  }
 }

@@ -1,60 +1,136 @@
-<h4 class="m-0 p-0 fw-bold pb-2 border-bottom ps-2 mb-2 text-capitalize">
-  login
-</h4>
-<div class="d-flex justify-content-center flex-column align-items-center">
-  <ng-container *ngIf="authService.user$ | async as user; else userLogin">
-    <mat-card class="login-card">
-      <mat-card-header>
-        <div mat-card-avatar class="login-image">
-          <img
-            class="rounded-circle shadow w-100 h-100"
-            [src]="user['photoURL']"
-            [alt]="user['displayName']" />
-        </div>
-        <mat-card-title>{{ user['displayName'] | titlecase }}</mat-card-title>
-        <mat-card-subtitle>{{ user['email'] }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-actions>
-        <button mat-button (click)="authService.signOut()">LOGOUT</button>
-      </mat-card-actions>
-    </mat-card>
-  </ng-container>
-</div>
+<!-- <ng-container *ngIf="false">
+  <h4 class="m-0 p-0 fw-bold pb-2 border-bottom ps-2 mb-2 text-capitalize">
+    login
+  </h4>
+  <div class="d-flex justify-content-center flex-column align-items-center">
+    <ng-container *ngIf="authService.user$ | async as user; else userLogin">
+      <mat-card class="login-card">
+        <mat-card-header>
+          <div mat-card-avatar class="login-image">
+            <img
+              class="rounded-circle shadow w-100 h-100"
+              [src]="user['photoURL']"
+              [alt]="user['displayName']" />
+          </div>
+          <mat-card-title>{{ user['displayName'] | titlecase }}</mat-card-title>
+          <mat-card-subtitle>{{ user['email'] }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button mat-button (click)="authService.signOut()">LOGOUT</button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+  </div>
+
+  <ng-template #userLogin>
+    <button mat-raised-button color="warn" (click)="signInWithGmail()">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="mail"></mat-icon
+      >Login with Gmail
+    </button>
+  </ng-template>
+
+  {
+    "uid": "VyIUxGOrcmdTgU14HWEI2mgpYDP2",
+    "email": "vamsi.flex@gmail.com",
+    "emailVerified": true,
+    "displayName": "vamsi kalyan",
+    "isAnonymous": false,
+    "photoURL": "https://lh3.googleusercontent.com/a/AAcHTtcKxpKuPFiFQjiB1JRFeTaoZw2qzwbGpLXwZTP4Fez4eg=s96-c",
+    "providerData": [
+      {
+        "providerId": "google.com",
+        "uid": "100105445848125370945",
+        "displayName": "vamsi kalyan",
+        "email": "vamsi.flex@gmail.com",
+        "phoneNumber": null,
+        "photoURL": "https://lh3.googleusercontent.com/a/AAcHTtcKxpKuPFiFQjiB1JRFeTaoZw2qzwbGpLXwZTP4Fez4eg=s96-c"
+      }
+    ],
+    "stsTokenManager": {
+      "refreshToken": "AMf-vBxTC5nDxZj3ACdCv_IfnMNB_mma__NC8XtAQEnZ4BzU34-kTQ0UPX3x9hRZg2zMXw4fPouAeEdc-M1X-V5oLq0lkX2ddRhvJ7rVQULtsJHY0lmS1FiVeEG3-wIF4zYrx_tlvisF0odT6PhRNOXWsz0hDeNlwMKiq6EaCEF1aG_DEe1AaVuTn8EDIvQ8pyo3B3LYURHAA8OsScBNwvz4PmV3IONNGS0GcyE_RW_P11wADErWOKKyr8C52XXWYSv5g5JELDxHAxEAueuR7gSzs-VVtjxmmx6qP-zqeEuj_4A2SS-18n6UOYBMEc96V2mNQaen_jqWFnXEPMKABikKU64opVxd3f4ZNIBjGdDgzwZCGbKhHHfdhpe9DIK6R6xwG4VtkFf_OevmJgTxsQsUERAU9aXmo8IMh0NFUDD53zptf3qiKPY",
+      "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjYzODBlZjEyZjk1ZjkxNmNhZDdhNGNlMzg4ZDJjMmMzYzIzMDJmZGUiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoidmFtc2kga2FseWFuIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FBY0hUdGNLeHBLdVBGaUZRamlCMUpSRmVUYW9adzJxendiR3BMWHdaVFA0RmV6NGVnPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL215cmV0YWlsMzYwIiwiYXVkIjoibXlyZXRhaWwzNjAiLCJhdXRoX3RpbWUiOjE2OTI2OTMzNDcsInVzZXJfaWQiOiJWeUlVeEdPcmNtZFRnVTE0SFdFSTJtZ3BZRFAyIiwic3ViIjoiVnlJVXhHT3JjbWRUZ1UxNEhXRUkybWdwWURQMiIsImlhdCI6MTY5MjY5MzM0NywiZXhwIjoxNjkyNjk2OTQ3LCJlbWFpbCI6InZhbXNpLmZsZXhAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDAxMDU0NDU4NDgxMjUzNzA5NDUiXSwiZW1haWwiOlsidmFtc2kuZmxleEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.Jakyj8h9HlV2h-ge_oWwOMG5JIlQxJFa8wAb5iHQR_DCqD5PLa-ijTTV2F_WddN1rdIe-rYvUcP7tl7XO3ALy9xXjp7Gr2xnyt89zMnLeoaLQzP-mSiOv3m1uwfrnOCf-P0fj_sG0mwDFwN50jo8RqzNYNmUL5WPNqGoUXnpop8MxjeDq07C4cGoDujGZF-P5OpuMpnJwx2iWjNkC-jrgFPNBaqaBzjp3NMxB43GDQdC8B42pd8YLxLsA5P5Kg7BsHC1AbqVQ42HI43m97S5fODnL911-iHokM0YSnOWS2k8-JPbB3u2r1EMb766ngrp-rT76_7u4vfiZm2vtoF3aQ",
+      "expirationTime": 1692696947796
+    },
+    "createdAt": "1692693151157",
+    "lastLoginAt": "1692693347308",
+    "apiKey": "AIzaSyD16vfj-AHu0ixlVAJUVSL7uCafbHZUjHo",
+    "appName": "[DEFAULT]"
+  }
+</ng-container> -->
+
+<ng-container *ngIf="authService.user$ | async as user; else userLogin">
+  <button
+    mat-stroked-button
+    color="primary"
+    (click)="authService.signOut()"
+    class="w-100 py-4 mb-3">
+    Logout
+  </button>
+</ng-container>
 
 <ng-template #userLogin>
-  <button mat-raised-button color="warn" (click)="signInWithGmail()">
-    <mat-icon
-      aria-hidden="false"
-      aria-label="Example home icon"
-      fontIcon="mail"></mat-icon
-    >Login with Gmail
-  </button>
-</ng-template>
+  <form #loginForm="ngForm" autocomplete="off">
+    <h2 class="text-center fw-bold mb-5 mt-3">Login Now</h2>
 
-<!-- {
-  "uid": "VyIUxGOrcmdTgU14HWEI2mgpYDP2",
-  "email": "vamsi.flex@gmail.com",
-  "emailVerified": true,
-  "displayName": "vamsi kalyan",
-  "isAnonymous": false,
-  "photoURL": "https://lh3.googleusercontent.com/a/AAcHTtcKxpKuPFiFQjiB1JRFeTaoZw2qzwbGpLXwZTP4Fez4eg=s96-c",
-  "providerData": [
-    {
-      "providerId": "google.com",
-      "uid": "100105445848125370945",
-      "displayName": "vamsi kalyan",
-      "email": "vamsi.flex@gmail.com",
-      "phoneNumber": null,
-      "photoURL": "https://lh3.googleusercontent.com/a/AAcHTtcKxpKuPFiFQjiB1JRFeTaoZw2qzwbGpLXwZTP4Fez4eg=s96-c"
-    }
-  ],
-  "stsTokenManager": {
-    "refreshToken": "AMf-vBxTC5nDxZj3ACdCv_IfnMNB_mma__NC8XtAQEnZ4BzU34-kTQ0UPX3x9hRZg2zMXw4fPouAeEdc-M1X-V5oLq0lkX2ddRhvJ7rVQULtsJHY0lmS1FiVeEG3-wIF4zYrx_tlvisF0odT6PhRNOXWsz0hDeNlwMKiq6EaCEF1aG_DEe1AaVuTn8EDIvQ8pyo3B3LYURHAA8OsScBNwvz4PmV3IONNGS0GcyE_RW_P11wADErWOKKyr8C52XXWYSv5g5JELDxHAxEAueuR7gSzs-VVtjxmmx6qP-zqeEuj_4A2SS-18n6UOYBMEc96V2mNQaen_jqWFnXEPMKABikKU64opVxd3f4ZNIBjGdDgzwZCGbKhHHfdhpe9DIK6R6xwG4VtkFf_OevmJgTxsQsUERAU9aXmo8IMh0NFUDD53zptf3qiKPY",
-    "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjYzODBlZjEyZjk1ZjkxNmNhZDdhNGNlMzg4ZDJjMmMzYzIzMDJmZGUiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoidmFtc2kga2FseWFuIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FBY0hUdGNLeHBLdVBGaUZRamlCMUpSRmVUYW9adzJxendiR3BMWHdaVFA0RmV6NGVnPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL215cmV0YWlsMzYwIiwiYXVkIjoibXlyZXRhaWwzNjAiLCJhdXRoX3RpbWUiOjE2OTI2OTMzNDcsInVzZXJfaWQiOiJWeUlVeEdPcmNtZFRnVTE0SFdFSTJtZ3BZRFAyIiwic3ViIjoiVnlJVXhHT3JjbWRUZ1UxNEhXRUkybWdwWURQMiIsImlhdCI6MTY5MjY5MzM0NywiZXhwIjoxNjkyNjk2OTQ3LCJlbWFpbCI6InZhbXNpLmZsZXhAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDAxMDU0NDU4NDgxMjUzNzA5NDUiXSwiZW1haWwiOlsidmFtc2kuZmxleEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.Jakyj8h9HlV2h-ge_oWwOMG5JIlQxJFa8wAb5iHQR_DCqD5PLa-ijTTV2F_WddN1rdIe-rYvUcP7tl7XO3ALy9xXjp7Gr2xnyt89zMnLeoaLQzP-mSiOv3m1uwfrnOCf-P0fj_sG0mwDFwN50jo8RqzNYNmUL5WPNqGoUXnpop8MxjeDq07C4cGoDujGZF-P5OpuMpnJwx2iWjNkC-jrgFPNBaqaBzjp3NMxB43GDQdC8B42pd8YLxLsA5P5Kg7BsHC1AbqVQ42HI43m97S5fODnL911-iHokM0YSnOWS2k8-JPbB3u2r1EMb766ngrp-rT76_7u4vfiZm2vtoF3aQ",
-    "expirationTime": 1692696947796
-  },
-  "createdAt": "1692693151157",
-  "lastLoginAt": "1692693347308",
-  "apiKey": "AIzaSyD16vfj-AHu0ixlVAJUVSL7uCafbHZUjHo",
-  "appName": "[DEFAULT]"
-} -->
+    <mat-form-field class="w-100 mb-3" appearance="outline">
+      <mat-label>Email Address</mat-label>
+      <input
+        name="email"
+        ngModel
+        #email="ngModel"
+        required
+        matInput
+        placeholder="Placeholder"
+        email
+        type="email" />
+      <mat-icon matSuffix>mail</mat-icon>
+      <mat-error *ngIf="email.invalid">Provide Valid Email Address</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mb-3" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        name="password"
+        ngModel
+        #password="ngModel"
+        required
+        matInput
+        placeholder="Placeholder"
+        type="password" />
+      <mat-icon matSuffix>lock</mat-icon>
+      <mat-error *ngIf="password.invalid">Provide Valid Password</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      [disabled]="loginForm.invalid"
+      color="primary"
+      (click)="signInWithEmailAndPassword(email.value, password.value)"
+      class="w-100 py-4 mb-4">
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
+
+    <button
+      mat-stroked-button
+      routerLink="/registration"
+      color="warn"
+      type="button"
+      class="w-100 py-4 mb-4">
+      <mat-icon>assignment</mat-icon>
+      Sign Up
+    </button>
+
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="signInWithGmail()"
+      class="w-100 py-4">
+      <mat-icon>mail</mat-icon>
+      Login with Gmail
+    </button>
+  </form>
+</ng-template>

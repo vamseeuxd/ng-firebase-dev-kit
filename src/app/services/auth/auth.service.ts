@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { CanActivate, Router, UrlTree } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Auth, User, user } from '@angular/fire/auth';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -33,9 +34,49 @@ export class AuthService implements CanActivate {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(this.auth, provider);
       console.log(userCredential);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      alert('Error while signInWithGmail');
+      alert(error.message);
+    }
+  }
+
+  async signInWithEmailAndPassword(email: string, password: string) {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+      if (!userCredential.user.emailVerified) {
+        await sendEmailVerification(userCredential.user);
+        alert(
+          `Your email is not verfied! an Email sent to ${userCredential.user.email} for Email Verification, Please complete your Email Verification`
+        );
+      }
+      console.log(userCredential);
+    } catch (error: any) {
+      console.log(error);
+      alert(error.message);
+    }
+  }
+
+  async createUserWithEmailAndPassword(email: string, password: string) {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+      if (!userCredential.user.emailVerified) {
+        await sendEmailVerification(userCredential.user);
+        alert(
+          `Email sent to ${userCredential.user.email} for Email Verification, Please complete your Email Verification`
+        );
+      }
+      console.log(userCredential);
+    } catch (error: any) {
+      console.log(error);
+      alert(error.message);
     }
   }
 

@@ -42,4 +42,8 @@ export class NavigationComponent {
       shareReplay()
     );
   constructor(public authService: AuthService) {}
+
+  async signOut() {
+    await this.authService.signOut();
+  }
 }
