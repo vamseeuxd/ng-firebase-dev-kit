@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { lastValueFrom } from 'rxjs';
 import {
   ConfirmDialogComponent,
   ConfirmDialogModel,
-} from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+} from '../../shared/confirm-dialog/confirm-dialog.component';
+import { AlertButtons } from '.';
 
 @Injectable({
   providedIn: 'root',
@@ -11,19 +13,25 @@ import {
 export class ConfirmService {
   result = '';
   constructor(public dialog: MatDialog) {}
-  confirmDialog(
+  confirm(
     title = 'Confirm Action',
     message = `Are you sure you want to do this?`,
-    maxWidth = '400px',
-    minWidth = '330px'
+    buttons: AlertButtons = [
+      { text: 'OK', role: 'primary' },
+      { text: 'Cancel', dismiss: true, role: 'link' },
+    ],
+    _props: MatDialogConfig = {
+      maxWidth: '400px',
+      minWidth: '330px',
+      disableClose: false,
+    }
   ): Promise<string> {
-    const dialogData = new ConfirmDialogModel(title, message);
+    const dialogData = new ConfirmDialogModel(title, message, buttons);
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth,
-      minWidth,
+      ..._props,
       data: dialogData,
     });
-    return dialogRef.afterClosed().toPromise();
+    return lastValueFrom(dialogRef.afterClosed());
   }
 }

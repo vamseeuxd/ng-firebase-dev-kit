@@ -1,5 +1,6 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
+import { AlertButton, AlertButtons } from '../../services/confirm';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -9,6 +10,7 @@ import { Component, Inject } from '@angular/core';
 export class ConfirmDialogComponent {
   title: string;
   message: string;
+  buttons: AlertButtons;
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
@@ -17,14 +19,21 @@ export class ConfirmDialogComponent {
     // Update view with given values
     this.title = data.title;
     this.message = data.message;
+    this.buttons = data.buttons;
   }
 
-  onConfirm(): void {
+  onConfirm(config: AlertButton): void {
+    if (config && config.handler) {
+      config.handler(config);
+    }
     // Close the dialog, return true
     this.dialogRef.close(true);
   }
 
-  onDismiss(): void {
+  onDismiss(config: AlertButton): void {
+    if (config && config.handler) {
+      config.handler(config);
+    }
     // Close the dialog, return false
     this.dialogRef.close(false);
   }
@@ -37,6 +46,7 @@ export class ConfirmDialogComponent {
 export class ConfirmDialogModel {
   constructor(
     public title: string,
-    public message: string
+    public message: string,
+    public buttons: AlertButtons = []
   ) {}
 }

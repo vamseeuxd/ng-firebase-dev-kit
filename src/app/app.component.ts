@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs/operators';
+import { LoaderService } from './services/loader/loader.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,12 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(swUpdate: SwUpdate) {
+  loaders$: Observable<number[]>;
+  constructor(
+    swUpdate: SwUpdate,
+    public loaderService: LoaderService
+  ) {
+    this.loaders$ = loaderService.loaders$;
     swUpdate.versionUpdates
       .pipe(
         filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')

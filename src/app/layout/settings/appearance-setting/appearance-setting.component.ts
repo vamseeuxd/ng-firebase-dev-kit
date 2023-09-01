@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
-import { ColorSchemeService } from 'src/app/services/color-scheme.service';
+import { ColorSchemeService } from 'src/app/services/color-scheme/color-scheme.service';
 
 @Component({
   selector: 'app-appearance-setting',
