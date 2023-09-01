@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "component": "ng g c shared/confirm-dialog",
     "service": "ng g s services/loader/loader",
-    "utils": "ng g pipe utilities/toString/toString",
+    "utils": "ng g class utilities/handle-error/handleError",
     "test": "ng test",
     "prepare": "husky install",
     "lint": "ng lint"

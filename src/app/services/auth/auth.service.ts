@@ -13,6 +13,7 @@ import {
 } from 'firebase/auth';
 import { ConfirmService } from '../confirm/confirm.service';
 import { LoaderService } from '../loader/loader.service';
+import { ERROR_CODES } from '../../utilities/handle-error/handle-error';
 
 @Injectable({
   providedIn: 'root',
@@ -86,20 +87,22 @@ export class AuthService implements CanActivate {
       );
       if (!userCredential.user.emailVerified) {
         await sendEmailVerification(userCredential.user);
-        this.loaderService.hide(loaderId);
         alert(
           `Email sent to ${userCredential.user.email} for Email Verification, Please complete your Email Verification`
         );
+        this.loaderService.hide(loaderId);
       } else {
         this.loaderService.hide(loaderId);
       }
     } catch (error: any) {
-      alert(error.message);
+      this.loaderService.hide(loaderId);
+      this.confirmService.confirm('', ERROR_CODES[error.code], [
+        { text: 'OK', role: 'primary' },
+      ]);
     }
   }
 
   async signOut() {
-    const loaderId = this.loaderService.show();
     const isConfirm = await this.confirmService.confirm(
       'Logout Confirmation',
       'Are you sure! Do you want to logout?'
@@ -108,6 +111,7 @@ export class AuthService implements CanActivate {
     const isConfirm = confirm('Are you sure! Do you want to logout?');
     */
     if (isConfirm) {
+      const loaderId = this.loaderService.show();
       try {
         await this.auth.signOut();
         this.loaderService.hide(loaderId);
@@ -116,8 +120,6 @@ export class AuthService implements CanActivate {
         this.loaderService.hide(loaderId);
         alert('Error while signOut');
       }
-    } else {
-      this.loaderService.hide(loaderId);
     }
   }
 
