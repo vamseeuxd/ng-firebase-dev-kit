@@ -30,15 +30,7 @@ export class ColorSchemeService {
   >('light');
   theme$ = this.themeAction.asObservable().pipe(
     tap(theme => {
-      this.renderer.removeClass(
-        document.body,
-        'color-scheme-' + (theme === 'dark' ? 'light' : 'dark')
-      );
-      this.renderer.addClass(
-        document.body,
-        'color-scheme-' + (theme === 'dark' ? 'dark' : 'light')
-      );
-      localStorage.setItem('theme', theme);
+      this.updateThemeClass(theme);
     })
   );
 
@@ -46,8 +38,20 @@ export class ColorSchemeService {
 
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
+    this.updateThemeClass(this.themeAction.value);
     this.themeAction.next(
       localStorage.getItem('theme') === 'dark' ? 'dark' : 'light'
     );
+  }
+  updateThemeClass(theme: 'light' | 'dark') {
+    this.renderer.removeClass(
+      document.body,
+      'color-scheme-' + (theme === 'dark' ? 'light' : 'dark')
+    );
+    this.renderer.addClass(
+      document.body,
+      'color-scheme-' + (theme === 'dark' ? 'dark' : 'light')
+    );
+    localStorage.setItem('theme', theme);
   }
 }

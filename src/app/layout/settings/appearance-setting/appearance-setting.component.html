@@ -1,7 +1,7 @@
 <ng-container *ngIf="theme$ | async as selectedTheme">
   <ng-container *ngFor="let theme of service.themes">
-    <button (click)="setTheme(theme.name)" mat-icon-button *ngIf="selectedTheme !== theme.name" [matTooltip]="theme.toolTip">
-      <mat-icon>{{ theme.icon }}</mat-icon>
+    <button mat-menu-item [matTooltip]="'Logout'" (click)="setTheme(theme.name)" *ngIf="selectedTheme !== theme.name" [matTooltip]="theme.toolTip">
+      <mat-icon>{{ theme.icon }}</mat-icon> {{theme.title}} Theme
     </button>
   </ng-container>
 </ng-container>
