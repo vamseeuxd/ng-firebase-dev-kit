@@ -1,0 +1,45 @@
+/* :host {
+  mat-expansion-panel {
+    margin-bottom: 0.0625rem;
+    mat-expansion-panel-header {
+      padding-bottom: 0.25rem;
+      ::ng-deep .mat-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+      }
+      mat-panel-description {
+        font-size: 0.65rem;
+        line-height: 0.65rem;
+        margin-top: 0.25rem;
+      }
+    }
+    mat-radio-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      mat-radio-button {
+        display: block;
+        width: 100%;
+        ::ng-deep .mdc-form-field {
+          width: 100%;
+          .mdc-label {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: space-between;
+            align-items: center;
+            mat-icon {
+              font-size: 1rem;
+              margin-top: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+ */

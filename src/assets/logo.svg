@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 190 50" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <style bx:fonts="Roboto">@import url(https://fonts.googleapis.com/css2?family=Roboto%3Aital%2Cwght%400%2C100%3B0%2C300%3B0%2C400%3B0%2C500%3B0%2C700%3B0%2C900%3B1%2C100%3B1%2C300%3B1%2C400%3B1%2C500%3B1%2C700%3B1%2C900&amp;display=swap);</style>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, -0.000499, 0.307)">
+    <title>BG-Group</title>
+    <rect y="1.693" width="186" height="35" style="fill: rgb(255, 212, 98);" x="2">
+      <title>Big-BG</title>
+    </rect>
+    <rect y="38.693" width="186" height="9.2" style="fill: rgb(255, 212, 98);" x="2">
+      <title>Big-BG</title>
+    </rect>
+    <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 39.2042px; font-weight: 900; letter-spacing: -3.8px; line-height: 55.558px; text-transform: uppercase; white-space: pre; transform-origin: 98.1643px 19.7788px;" transform="matrix(1.014493, 0, 0, 0.892761, 1.909045, 0.914164)" x="6.914" y="32.377">RETAIL 360</text>
+    <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 5.8px; letter-spacing: 3.5px; text-transform: lowercase; white-space: pre;" x="8.147" y="44.624">Your Complete Retail Solution</text>
+    <path d="M 178.7 -23.748 L 183.4 -18.293 L 174 -18.293 L 178.7 -23.748 Z" style="fill: rgb(255, 212, 98);" transform="matrix(1, 0, 0, -1, 0, 0)" bx:shape="triangle 174 -23.748 9.4 5.455 0.5 0 1@ee931456"/>
+    <path d="M 178.692 -22.782 L 183.383 -17.327 L 174 -17.327 L 178.692 -22.782 Z" style="fill: rgb(51, 51, 51);" transform="matrix(1, 0, 0, -1, 0, 0)" bx:shape="triangle 174 -22.782 9.383 5.455 0.5 0 1@9241de17"/>
+  </g>
+</svg>

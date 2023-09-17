@@ -1,0 +1,75 @@
+<ng-container *ngIf="authService.user$ | async as user; else userLogin">
+  <button
+    mat-stroked-button
+    color="primary"
+    (click)="authService.signOut()"
+    class="w-100 py-4 mb-3">
+    Logout
+  </button>
+</ng-container>
+
+<ng-template #userLogin>
+  <div class="container-fluid">
+    <form #loginForm="ngForm" autocomplete="off" class="col-md-4 offset-md-4">
+      <h2 class="text-center fw-bold mb-5 mt-3">Login Now</h2>
+
+      <mat-form-field class="w-100 mb-3" appearance="outline">
+        <mat-label>Email Address</mat-label>
+        <input
+          name="email"
+          ngModel
+          #email="ngModel"
+          required
+          matInput
+          placeholder="Placeholder"
+          email
+          type="email" />
+        <mat-icon matSuffix>mail</mat-icon>
+        <mat-error *ngIf="email.invalid">Provide Valid Email Address</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100 mb-3" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          name="password"
+          ngModel
+          #password="ngModel"
+          required
+          matInput
+          placeholder="Placeholder"
+          type="password" />
+        <mat-icon matSuffix>lock</mat-icon>
+        <mat-error *ngIf="password.invalid">Provide Valid Password</mat-error>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        [disabled]="loginForm.invalid"
+        color="primary"
+        (click)="signInWithEmailAndPassword(email.value, password.value)"
+        class="w-100 py-4 mb-4">
+        <mat-icon>login</mat-icon>
+        Login
+      </button>
+
+      <button
+        mat-stroked-button
+        routerLink="/registration"
+        color="warn"
+        type="button"
+        class="w-100 py-4 mb-4">
+        <mat-icon>assignment</mat-icon>
+        Sign Up
+      </button>
+
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="signInWithGmail()"
+        class="w-100 py-4">
+        <mat-icon>mail</mat-icon>
+        Login with Gmail
+      </button>
+    </form>
+  </div>
+</ng-template>

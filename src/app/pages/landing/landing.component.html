@@ -1,0 +1,7 @@
+<mat-card *ngFor="let tile of tiles" class="landing-page-card mat-elevation-z3">
+  <mat-card-content  matRipple [routerLink]="'../'+tile.id">
+    <mat-card-title>{{ tile.title }}</mat-card-title>
+    <mat-card-subtitle>{{ tile.description }}</mat-card-subtitle>
+    <mat-icon aria-hidden="false" [fontIcon]="tile.icon"></mat-icon>
+  </mat-card-content>
+</mat-card>

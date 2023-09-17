@@ -1,0 +1,41 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<h1 mat-dialog-title [innerHTML]="title" class="p-0 m-0 px-2 mb-2">
+</h1>
+
+<div mat-dialog-content class="p-0 m-0 mb-2">
+  <p class="p-0 m-0 px-3" [innerHTML]="message"></p>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end mb-2">
+  <ng-container *ngFor="let config of buttons">
+    <ng-container
+      *ngTemplateOutlet="confirmButton; context: { config: config }">
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #confirmButton let-config="config">
+  <ng-container *ngIf="config.role">
+    <ng-container [ngSwitch]="config.role">
+      <ng-container *ngSwitchCase="'basic'">
+        <button [id]="config.id" mat-button [class]="config.cssClass ? config.cssClass.join(', ') : ''" (click)="config.dismiss ? onDismiss(config) : onConfirm(config)">{{ config.text }}</button>
+      </ng-container>
+      <ng-container *ngSwitchCase="'primary'">
+        <button [id]="config.id" mat-raised-button [class]="config.cssClass ? config.cssClass.join(', ') : ''" color="primary" (click)="config.dismiss ? onDismiss(config) : onConfirm(config)">{{ config.text }}</button>
+      </ng-container>
+      <ng-container *ngSwitchCase="'accent'">
+        <button [id]="config.id" mat-raised-button [class]="config.cssClass ? config.cssClass.join(', ') : ''" color="accent" (click)="config.dismiss ? onDismiss(config) : onConfirm(config)">{{ config.text }}</button>
+      </ng-container>
+      <ng-container *ngSwitchCase="'warn'">
+        <button [id]="config.id" mat-raised-button [class]="config.cssClass ? config.cssClass.join(', ') : ''" color="warn" (click)="config.dismiss ? onDismiss(config) : onConfirm(config)">{{ config.text }}</button>
+      </ng-container>
+      <ng-container *ngSwitchCase="'link'">
+        <a mat-button [id]="config.id" [class]="config.cssClass ? config.cssClass.join(', ') : ''" (click)="config.dismiss ? onDismiss(config) : onConfirm(config)">{{ config.text }}</a>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!config.role">
+    <button mat-raised-button [class]="config.cssClass ? config.cssClass.join(', ') : ''" (click)="config.dismiss ? onDismiss(config) : onConfirm(config)">{{ config.text }}</button>
+  </ng-container>
+</ng-template>

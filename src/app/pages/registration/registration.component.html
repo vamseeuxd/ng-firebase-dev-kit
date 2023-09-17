@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <form #loginForm="ngForm" class="col-md-4 offset-md-4" autocomplete="off">
+    <h2 class="text-center fw-bold mb-5 mt-3">Sign Up</h2>
+
+    <mat-form-field class="w-100 mb-3" appearance="outline">
+      <mat-label>Email Address</mat-label>
+      <input
+        name="email"
+        ngModel
+        #email="ngModel"
+        required
+        matInput
+        placeholder="Placeholder"
+        email
+        type="email" />
+      <mat-icon matSuffix>mail</mat-icon>
+      <mat-error *ngIf="email.invalid">Provide Valid Email Address</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mb-3" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        name="password"
+        ngModel
+        #password="ngModel"
+        required
+        matInput
+        placeholder="Placeholder"
+        type="password" />
+      <mat-icon matSuffix>lock</mat-icon>
+      <mat-error *ngIf="password.invalid">Provide Valid Password</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mb-3" appearance="outline">
+      <mat-label>Confirm Password</mat-label>
+      <input
+        name="confirmPassword"
+        ngModel
+        #confirmPassword="ngModel"
+        required
+        matInput
+        placeholder="Placeholder"
+        type="password" />
+      <mat-icon matSuffix>lock</mat-icon>
+      <mat-error *ngIf="confirmPassword.invalid"
+        >Provide Valid Password</mat-error
+      >
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      [disabled]="loginForm.invalid || confirmPassword.value !== password.value"
+      color="primary"
+      (click)="createUserWithEmailAndPassword(email.value, password.value)"
+      class="w-100 py-4 mb-4">
+      Register
+    </button>
+
+    <button
+      mat-stroked-button
+      routerLink="/login"
+      color="primary"
+      type="button"
+      class="w-100 py-4 mb-4">
+      Back to Login
+    </button>
+  </form>
+</div>
