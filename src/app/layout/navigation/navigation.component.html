@@ -2,22 +2,24 @@
   <mat-drawer
     #drawer
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) ? false : true"
     class="navigation-sidenav"
     mode="side">
     <mat-toolbar color="primary">
       <span>
-        <img
-          src="./assets/logo.png"
-          alt="Logo"/>
+        <img [routerLink]="'landing'" src="./assets/logo.png" alt="Logo" />
       </span>
     </mat-toolbar>
-    <mat-action-list *ngIf="menu$ | async as menu">
-      <ng-container *ngFor="let i of menu">
+    <mat-action-list *ngIf="menu$ | async as menuList">
+      <ng-container *ngFor="let menu of menuList">
         <button
           mat-list-item
           routerLinkActive="active shadow-sm"
-          [routerLink]="i">
-          {{ i | titlecase }}
+          [routerLink]="menu.id">
+          <div class="d-flex">
+            <mat-icon aria-hidden="false" [fontIcon]="menu.icon"></mat-icon>
+            <span class="ms-2">{{ menu.title | titlecase }}</span>
+          </div>
         </button>
       </ng-container>
     </mat-action-list>
@@ -36,6 +38,7 @@
         <img
           src="./assets/logo.png"
           alt="Logo"
+          [routerLink]="'landing'"
           class="border-end border-secondary pe-2" />
         <span class="text-danger ms-2" style="font-size: 12px">0.1</span></span
       >

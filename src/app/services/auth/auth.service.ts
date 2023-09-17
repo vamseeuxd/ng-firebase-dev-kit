@@ -35,7 +35,7 @@ export class AuthService implements CanActivate {
       if (!user) {
         this.router.navigate(['login']);
       } else {
-        this.router.navigate(['franchise']);
+        this.router.navigate(['landing']);
       }
     });
   }

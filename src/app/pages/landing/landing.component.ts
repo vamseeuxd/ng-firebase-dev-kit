@@ -1,37 +1,22 @@
-import { Component, inject } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable, of, combineLatest } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { AuthService } from '../../services/auth/auth.service';
-import { ITile } from '../../pages/landing/landing.component';
+import { Component } from '@angular/core';
+
+export interface ITile {
+  icon: string;
+  title: string;
+  description: string;
+  id: string;
+}
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss'],
+  selector: 'app-landing',
+  templateUrl: './landing.component.html',
+  styleUrls: ['./landing.component.scss'],
 })
-export class NavigationComponent {
-  private breakpointObserver = inject(BreakpointObserver);
-
-  menuBeforeLogin = [
-    {
-      icon: 'login',
-      description: '',
-      title: 'Login',
-      id: 'login',
-    },
-    {
-      icon: 'add_card',
-      description: 'allows to add, remove or Update Franchise',
-      title: 'Registration',
-      id: 'registration',
-    },
-  ];
-
-  menuAfterLogin: ITile[] = [
+export class LandingComponent {
+  tiles: ITile[] = [
     {
       icon: 'grid_on',
-      description: '',
+      description: 'displays various types of visual data in one place',
       title: 'Landing',
       id: 'landing',
     },
@@ -90,26 +75,4 @@ export class NavigationComponent {
       id: 'order-taking',
     },
   ];
-
-  menu$ = combineLatest(
-    this.authService.user$,
-    of(this.menuBeforeLogin),
-    of(this.menuAfterLogin)
-  ).pipe(
-    map(([user, menuBeforeLogin, menuAfterLogin]) => {
-      return user ? menuAfterLogin : menuBeforeLogin;
-    })
-  );
-
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
-  constructor(public authService: AuthService) {}
-
-  async signOut() {
-    await this.authService.signOut();
-  }
 }
