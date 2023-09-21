@@ -1,1 +1,255 @@
-<h4 class="m-0 p-0 fw-bold pb-2 border-bottom ps-2 mb-2 text-capitalize">franchise</h4>
+<h4 class="m-0 p-0 fw-bold pb-2 border-bottom ps-2 mb-2 text-capitalize d-flex">
+  franchises
+  <button class="ms-auto" mat-button (click)="openDialog(newFranchise, false)">
+    Add New Franchise
+  </button>
+</h4>
+
+<ng-container *ngIf="franchisesManager">
+  <mat-accordion *ngIf="franchisesManager.data$ | async as data">
+    <ng-container *ngFor="let item of data; trackBy: franchisesManager.trackBy">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <div class="d-flex">
+            {{ item.name }}
+          </div>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem">
+            <div class="d-flex align-items-center justify-content-start">
+              <mat-icon class="me-2" matSuffix>account_balance</mat-icon>
+              Name : {{ item.name }}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="d-flex align-items-center justify-content-start">
+              <mat-icon class="me-2" matSuffix>supervised_user_circle</mat-icon>
+              Owner : {{ item.owner }}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="d-flex align-items-center justify-content-start">
+              <mat-icon class="me-2" matSuffix>post_add</mat-icon>
+              Address-1 : {{ item.addressLine1 }}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="d-flex align-items-center justify-content-start">
+              <mat-icon class="me-2" matSuffix>notes</mat-icon>
+              Address-2 : {{ item.addressLine2 }}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="d-flex align-items-center justify-content-start">
+              <mat-icon class="me-2" matSuffix>location_on</mat-icon>
+              City : {{ item.city }}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="d-flex align-items-center justify-content-start">
+              <mat-icon class="me-2" matSuffix>share_location</mat-icon>
+              State : {{ addressService.getStateByCodeAndCountry(item.state, item.country)?.name }}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="d-flex align-items-center justify-content-start">
+              <mat-icon class="me-2" matSuffix>location_searching</mat-icon>
+              Country : {{ addressService.getCountryByCode(item.country)?.name }}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="d-flex align-items-center justify-content-start">
+              <mat-icon class="me-2" matSuffix>phone</mat-icon>
+              Mobile : {{ item.mobile }}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem">
+            <div class="d-flex align-items-center justify-content-start">
+              <mat-icon class="me-2" matSuffix>email</mat-icon>
+              Email : {{ item.email }}
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+
+        <div class="d-flex justify-content-end pe-3">
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="deleteData(item)"
+            style="width: 110px">
+            <mat-icon>delete</mat-icon>
+            Delete
+          </button>
+          <button
+            mat-raised-button
+            class="ms-3"
+            (click)="openDialog(item, true)"
+            style="width: 110px">
+            <mat-icon>mode_edit</mat-icon>
+            Edit
+          </button>
+        </div>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </mat-accordion>
+</ng-container>
+
+<ng-template #dialogRef let-data>
+  <h1 mat-dialog-title>{{ data.isEdit ? 'Edit' : 'Add' }} Franchise</h1>
+  <div mat-dialog-content>
+    <form #franchiseForm="ngForm" autocomplete="off" class="row">
+      <div class="col-md-6 py-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Franchise Name</mat-label>
+          <input
+            matInput
+            placeholder="Name"
+            required
+            name="name"
+            [ngModel]="data.franchise.name"
+            cdkFocusInitial />
+          <mat-icon matSuffix>account_balance</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 py-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Franchise Owner</mat-label>
+          <input
+            matInput
+            placeholder="Owner"
+            required
+            name="owner"
+            [ngModel]="data.franchise.owner" />
+          <mat-icon matSuffix>supervised_user_circle</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 py-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Address Line - 1</mat-label>
+          <input
+            matInput
+            placeholder="Address Line - 1"
+            required
+            name="addressLine1"
+            [ngModel]="data.franchise.addressLine1" />
+          <mat-icon matSuffix>post_add</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 py-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Address Line - 2</mat-label>
+          <input
+            matInput
+            placeholder="Address Line - 2"
+            required
+            name="addressLine2"
+            [ngModel]="data.franchise.addressLine2" />
+          <mat-icon matSuffix>notes</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 py-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>City</mat-label>
+          <mat-select
+            matInput
+            placeholder="City"
+            required
+            name="city"
+            [ngModel]="data.franchise.city" >
+            <mat-option
+              *ngFor="let city of addressService.cities"
+              [value]="city.name">
+              {{ city.name }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>location_on</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 py-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>State</mat-label>
+          <mat-select
+            matInput
+            placeholder="State"
+            required
+            name="state"
+            (selectionChange)="addressService.getCitiesOfState(franchiseForm.value.country, franchiseForm.value.state)"
+            [ngModel]="data.franchise.state">
+            <mat-option
+              *ngFor="let state of addressService.states"
+              [value]="state.isoCode">
+              {{ state.name }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>share_location</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 py-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Country</mat-label>
+          <mat-select
+            placeholder="Country"
+            required
+            name="country"
+            (selectionChange)="addressService.getStatesOfCountry(franchiseForm.value.country)"
+            [ngModel]="data.franchise.country">
+            <mat-option
+              *ngFor="let country of addressService.countries"
+              [value]="country.isoCode">
+              {{ country.name }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>location_searching</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 py-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Mobile</mat-label>
+          <input
+            matInput
+            placeholder="Mobile"
+            required
+            name="mobile"
+            type="tel"
+            prefix="+91"
+            mask="000 00 00 000"
+            [ngModel]="data.franchise.mobile" />
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 py-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="Email"
+            required
+            name="email"
+            email
+            type="email"
+            [ngModel]="data.franchise.email" />
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions class="d-flex">
+    <button
+      [disabled]="franchiseForm.invalid"
+      mat-button
+      (click)="saveData(franchiseForm, data.isEdit, data.id)">
+      Save
+    </button>
+    <button mat-button class="ms-auto" (click)="onNoClick()">Cancel</button>
+  </div>
+</ng-template>

@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +60,7 @@ import { MatMenuModule } from '@angular/material/menu';
       registrationStrategy: 'registerWhenStable:30000',
     }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
   ],
   providers: [],
